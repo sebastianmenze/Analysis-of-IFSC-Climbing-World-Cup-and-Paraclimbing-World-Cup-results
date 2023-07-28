@@ -129,7 +129,8 @@ for file in filelist:
         ixe = events[k] ==df_event['name']
         n= df_event.loc[ixe,'n']
         
-        df.loc[k,'rank_norm']= df.loc[k,'rank'] /n.values
+        # df.loc[k,'rank_norm']= df.loc[k,'rank'] /n.values
+        df.loc[k,'rank_norm']= (df.loc[k,'rank']-1) /n.values
 
 
     if len(df)>4:
@@ -230,7 +231,8 @@ for file in filelist:
         try:
             ixe = events[k] ==df_event['name']
             n= df_event.loc[ixe,'n']
-            df.loc[k,'rank_norm']= df.loc[k,'rank'] /n.values
+            # df.loc[k,'rank_norm']= df.loc[k,'rank'] /n.values
+            df.loc[k,'rank_norm']= (df.loc[k,'rank']-1) /n.values
 
         except:
             df.loc[k,'rank_norm']= np.nan
@@ -405,10 +407,10 @@ i=  np.where( ixme.values )[0][0]
 plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i])  )
 
 
-ixme = ifsc_para['name'] =='Solenne PIRET.csv'
-plt.plot( x[ixme.values]  ,y[ixme.values],'.b',markersize=30 )
-i=  np.where( ixme.values )[0][0]
-plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i])  )
+# ixme = ifsc_para['name'] =='Solenne PIRET.csv'
+# plt.plot( x[ixme.values]  ,y[ixme.values],'.b',markersize=30 )
+# i=  np.where( ixme.values )[0][0]
+# plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i])  )
 
 
 plt.legend()
@@ -417,7 +419,7 @@ plt.xlabel('Normalized mean World cup result per category')
 plt.ylabel('Normalized standard deviation of World cup results per category')
 plt.draw()
 
-# plt.savefig('ifsc_worldup_result_analysis_comp.png')
+# plt.savefig('ifsc_worldup_result_analysis_comp2.png')
 
 #%%
 
@@ -496,7 +498,7 @@ plt.xlabel('Normalized mean World cup result per category')
 plt.ylabel('Normalized standard deviation of World cup results per category')
 plt.draw()
 
-# plt.savefig('ifsc_worldup_result_analysis_norm.png')
+# plt.savefig('ifsc_worldup_result_analysis_para.png')
 
 
 
@@ -644,7 +646,7 @@ plt.colorbar()
 
 # for i in range(len(ifsc_norm)):
 #     plt.annotate(ifsc_norm.loc[i,'name'], ( ifsc_norm.loc[i,'mean_norm'], ifsc_norm.loc[i,'std_norm'] )  )
-# 
+
 
 
 plt.xlabel('Normalized mean World cup result')
@@ -678,8 +680,8 @@ plt.draw()
 
 #%%
 
-ifsc_norm['slope'].mean()
-ifsc_para['slope'].mean()
+ifsc_norm['slope'].std()
+ifsc_para['slope'].std()
 
 plt.figure(7)
 plt.clf()
@@ -688,13 +690,13 @@ plt.subplot(211)
 
 plt.hist( ifsc_norm['slope'],100 )
 plt.grid()
-plt.title('mean slope: '+str(ifsc_norm['slope'].mean() ))
+plt.title('Normal: mean slope: '+str(ifsc_norm['slope'].mean() ))
 
 plt.subplot(212)
 
 plt.hist( ifsc_para['slope'],100 )
 plt.grid()
-plt.title('mean slope: '+str(ifsc_para['slope'].mean() ))
+plt.title('Para: mean slope: '+str(ifsc_para['slope'].mean() ))
 
 plt.tight_layout()
 plt.draw()
@@ -821,4 +823,133 @@ plt.draw()
 
 # ifsc_para.to_csv('world_cup_stats_para.csv')
 # ifsc_norm.to_csv('world_cup_stats_norm.csv')
+
+
+#%%
+
+plt.figure(6)
+plt.clf()
+
+
+x=ifsc_para['mean_norm']
+y=ifsc_para['std_norm']
+
+# x= (x-x.min()) / (x.max()-x.min())
+# y= (y-y.min()) / (y.max()-y.min())
+plt.plot(x,y,'.b' ,label='Paraclimbing')
+# for i in range(len(ifsc_para)):
+#     plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i]))
+
+ixme = ifsc_para['cat'] =='WOMEN AL2'
+plt.plot( x[ixme.values]  ,y[ixme.values],'.b',markersize=30 )
+ii=  np.where( ixme.values )[0]
+for i in ii:
+    plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i])  )
+
+
+plt.legend()
+
+plt.xlabel('Normalized mean World cup result per category')
+plt.ylabel('Normalized standard deviation of World cup results per category')
+plt.draw()
+
+# plt.savefig('ifsc_worldup_result_analysis_para_menal2.png')
+
+#%%
+
+
+
+plt.figure(6)
+plt.clf()
+
+
+x=ifsc_para['mean_norm']
+y=ifsc_para['std_norm']
+
+# x= (x-x.min()) / (x.max()-x.min())
+# y= (y-y.min()) / (y.max()-y.min())
+# plt.plot(x,y,'.b' ,label='Paraclimbing')
+# for i in range(len(ifsc_para)):
+#     plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i]))
+
+n=1
+for k in ifsc_para['cat'].unique():
+    
+    plt.subplot(5,6,n)
+    n=n+1
+    ixme = ifsc_para['cat'] ==k
+    plt.plot( x[ixme.values]  ,y[ixme.values],'.r',label=k )
+    # ii=  np.where( ixme.values )[0]
+    # for i in ii:
+    #     plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i])  )
+    plt.legend()
+
+plt.tight_layout()
+
+plt.xlabel('Normalized mean World cup result per category')
+plt.ylabel('Normalized standard deviation of World cup results per category')
+plt.draw()
+
+# plt.savefig('ifsc_worldup_result_analysis_para_by_class.png')
+
+
+#%%
+
+
+plt.figure(6)
+plt.clf()
+
+
+x=ifsc_norm['mean_norm']
+y=ifsc_norm['std_norm']
+
+# x= (x-x.min()) / (x.max()-x.min())
+# y= (y-y.min()) / (y.max()-y.min())
+plt.plot(x,y,'.b' ,label='Paraclimbing')
+# for i in range(len(ifsc_para)):
+#     plt.annotate(ifsc_para.loc[i,'name'], (x[i],y[i]))
+
+
+ifsc_norm['cat'].unique()
+
+ixme = ifsc_norm['cat'] =='WOMEN'
+plt.plot( x[ixme.values]  ,y[ixme.values],'.b',markersize=30 )
+ii=  np.where( ixme.values )[0]
+for i in ii:
+    plt.annotate(ifsc_norm.loc[i,'name'], (x[i],y[i])  )
+
+
+plt.legend()
+
+plt.xlabel('Normalized mean World cup result per category')
+plt.ylabel('Normalized standard deviation of World cup results per category')
+plt.draw()
+
+# plt.savefig('ifsc_worldup_result_analysis_para_menal2.png')
+
+#%%
+
+
+plt.figure(10)
+plt.clf()
+
+
+x=ifsc_norm['mean_norm']
+y=ifsc_norm['std_norm']
+
+ix_1=x<0.2
+ix_2 =(x>=0.2) & (x<0.8)
+ix_3 = x>=0.8
+
+
+data= [ y[ix_m] ,  ]
+
+plt.boxplot()
+
+
+plt.xlabel('Normalized mean World cup result per category')
+plt.ylabel('Normalized standard deviation of World cup results per category')
+plt.draw()
+
+# plt.savefig('ifsc_worldup_result_analysis_para_menal2.png')
 
