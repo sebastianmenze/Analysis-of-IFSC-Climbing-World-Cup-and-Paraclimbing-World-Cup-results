@@ -12,7 +12,7 @@ I downloaded the IFSC World cup results using web-scraping with python and selen
 I calculated the normalized rank for each competition:
 
 ```
-normalized rank = rank / number of competitors in class
+normalized rank = (rank - 1) / number of competitors in class
 ```
 
 where 0 means becoming first and 1 becoming last. 
@@ -23,9 +23,7 @@ I selected athletes that have results from more than 4 World Cups or Championshi
 
 Here you can see a comparison of regular and paraclimbing world cup results, where the athletes on the left are the best and on the right are the worst. The vertical axis shoes how much their results vary.
 
-![ifsc_worldup_result_analysis_comp](ifsc_worldup_result_analysis_comp.png)
-
-The first thing we notice is that the pattern for regular and paraclimbing looks almost identical, a "c" or banana shape. This banana shape means that both the over- and under-achievers (left and right) have much more consistent world cup results than the bulk of climber in the middle. If we zoom into the lower left you find exception athlete that almost always win their competition. For the regular athletes, this place is occupied by Janja Garnbret (no suprise)and Chaehyun Seo, in the para world Thierry Delarue,  Romain Pagnoux and Solenne Piret show similar performance. 
+![ifsc_worldup_result_analysis_comp2](ifsc_worldup_result_analysis_comp2.png)The first thing we notice is that the pattern for regular and paraclimbing looks almost identical, a "c" or banana shape. This banana shape means that both the over- and under-achievers (left and right) have much more consistent world cup results than the bulk of climber in the middle. If we zoom into the lower left you find exception athlete that almost always win their competition. For the regular athletes, this place is occupied by Janja Garnbret (no suprise)and Chaehyun Seo, in the para world Thierry Delarue and Solenne Piret show similar performance. Interestingly there are almost no under-performers that consistently achieve bad results in para world cups.
 
 My results are in the middle field, where you can find much larger variation in results than at the top level (on the left) . This indicates that randomness has a larger role to play for climber that belong to the 20-80% best climbers.  
 
@@ -39,9 +37,9 @@ So what does this tell us?
 
 - There is no easy way to the top. Luck plays the biggest role for the top 20-80% of athletes, less so for the top and bottom 20%. Expect variable competition results unless you are really good or really bad, it's part of the game.
 - In some categories there are exceptionally talented athletes that dominate the field. Don't compare yourself to them, keep on training and you'll get there. Also have fun!
-- Para-climbing is an elite level sport that shows identical statistical patterns to regular competition climbing.
+- Para-climbing is an elite level sport that shows similar statistical patterns to regular competition climbing.
 
-A curious finding is that the rate of athlete improvement over time (avg. slope) is over 8 times higher for para-climbing than regular world cups. I wonder if this is a statistical artifact due to the smaller sample size, or a real effect, since many para climbers start competing at the world cups compared to regular climbers that often have previous competition experience. 
+A curious finding is that the rate of athlete improvement over time (avg. slope) is around 4 times higher for para-climbing than regular world cups. I wonder if this is a statistical artifact due to the smaller sample size, or a real effect, since many para climbers start competing at the world cups compared to regular climbers that often have previous competition experience. 
 
 ![ifsc_worldup_result_analysis_trend_hist](ifsc_worldup_result_analysis_trend_hist.png)
 
