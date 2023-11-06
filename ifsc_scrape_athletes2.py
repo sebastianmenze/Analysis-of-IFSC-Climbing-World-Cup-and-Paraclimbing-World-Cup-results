@@ -18,9 +18,10 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 import numpy as np
 import re
-
+import os
 import traceback
 
+os.chdir(r'C:\Users\wurst\Downloads\Analysis-of-IFSC-Climbing-World-Cup-and-Paraclimbing-World-Cup-results-main\athlete_rankings_2')
 driver = webdriver.Chrome()
 
 for number in np.arange(30000)+1 :
@@ -31,8 +32,47 @@ for number in np.arange(30000)+1 :
         
         climber_name= driver.title
         
+####
+        elem = driver.find_element(By.CLASS_NAME, "athlete")
+        text = elem.get_attribute('innerHTML')
+        
+        
+
+        
+        pattern1 = 'class="age"> Age:<strong>'
+        indices_object = re.finditer(pattern=pattern1, string=text)
+        k1 = [index.start() for index in indices_object]
+        
+        pattern2 = '</strong> </span>'
+        indices_object = re.finditer(pattern=pattern2, string=text)
+        k2 = [index.start() for index in indices_object]
+        k2=np.array(k2)
+        k2=k2[k2>k1]
+        
+        age_str = text[k1[0]+len( pattern1 ):k2[0]].strip()    
+        age= int( re.sub("[^0-9]", "", age_str) )
+        
+        
+    
+        
+        pattern1 = 'src=https://ifsc.results.info/images/flags/'
+        indices_object = re.finditer(pattern=pattern1, string=text)
+        k1 = [index.start() for index in indices_object]
+        
+        pattern2 = '.png alt='
+        indices_object = re.finditer(pattern=pattern2, string=text)
+        k2 = [index.start() for index in indices_object]
+        k2=np.array(k2)
+        k2=k2[k2>k1]
+        
+        country_str = text[k1[0]+len( pattern1 ):k2[0]].strip()    
+        
+        
+        
+####        
         elem = driver.find_element(By.CLASS_NAME, "results")
         text = elem.get_attribute('innerHTML')
+        
         
         
         # match=re.findall(pattern, text)
@@ -109,6 +149,8 @@ for number in np.arange(30000)+1 :
 
                 #pass                
         athlete['name']=    climber_name
+        athlete['age']=    age
+        athlete['country']=    country_str
         
         print(athlete)
         

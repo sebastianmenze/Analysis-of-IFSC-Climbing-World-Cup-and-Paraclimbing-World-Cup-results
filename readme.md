@@ -19,7 +19,7 @@ where 0 means becoming first and 1 becoming last.
 
 I selected athletes that have results from more than 4 World Cups or Championships since the year 2000 and calculated the mean  normalized rank and the standard deviation of the normalized rank. In addition I fitted a linear regression to the normalized rank over time, where a value near 0 indicates little change over time, a negative slope means the athlete is improving their ranking towards first place and a positive slope means the athlete is trending towards last place. 
 
-## Results
+## Analysis of competition results
 
 Here you can see a comparison of regular and paraclimbing world cup results, where the athletes on the left are the best and on the right are the worst. The vertical axis shoes how much their results vary.
 
@@ -42,6 +42,24 @@ So what does this tell us?
 A curious finding is that the rate of athlete improvement over time (avg. slope) is around 4 times higher for para-climbing than regular world cups. I wonder if this is a statistical artifact due to the smaller sample size, or a real effect, since many para climbers start competing at the world cups compared to regular climbers that often have previous competition experience. 
 
 ![ifsc_worldup_result_analysis_trend_hist](ifsc_worldup_result_analysis_trend_hist.png)
+
+## Number and age of athletes 
+
+Both regular and paraclimbing showed some remarkable growth in the number of active athletes per year. I also calculated how many athletes were "regulars" that also competed in the previous year. This shows that there is a stable core (around 50%) of athletes in both para and regular climbing competitions. In paraclimbing this group is still growing each year. In regular climbing it has plateaued at around 120 climbers per gender. In 2023 we achieved a record number of 230 competitors. 
+
+Compared to regular climbing we paraclimbers are quite a bit older, ranging from 16 to over 50 years old, with a peak in men in their 30s and women in their late 20s. 
+
+![para_vs_regular](para_vs_regular.png)
+
+The results for the individual categories are shown here:
+
+![athletes_per_year2](athletes_per_year2.png)
+
+
+
+![class_age_distribution](class_age_distribution.png)
+
+
 
 ## Acknowledgements 
 
